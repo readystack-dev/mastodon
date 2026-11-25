@@ -1,0 +1,9 @@
+{
+  "schema": "kitforge.source_tree_hash.v1",
+  "slug": "mastodon",
+  "repo": "https://github.com/mastodon/mastodon",
+  "ref": "v4.7.6",
+  "commit": "a593c9420d2ff4664d448a9cb71bf8ed4ff0c29a",
+  "tree_listing_sha256": "66fa0a9ee21b341cf1bde47e22d905c3296233c69d950ee483bbcb7209929066",
+  "file_count": 9932
+}

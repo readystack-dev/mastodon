@@ -1,0 +1,8 @@
+image_manifest_digest=sha256:1938eb27869ae3e5a7961fc384f717b03bf3bccbd35c60da2d3da8d2111506f4
+config_digest=sha256:8d1b82bc08e5ee765c89329443b6bd39ffd76812a5d538e6393b52eef522868f
+tag=readystack/mastodon:v4.7.6-CE-ubuntu24.04-r2
+probe_port=3000
+probe_path=/health
+probe_timeout=1200
+verify_boot=skip
+verify_boot_reason=this image needs db, redis (not part of this archive); boot it with your own services as the admin handbook describes

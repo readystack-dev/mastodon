@@ -1,0 +1,297 @@
+{
+ "schema": "readystack.recipe.v1",
+ "slug": "mastodon",
+ "tag": "v4.7.6-CE-ubuntu24.04-r2",
+ "tarball": "ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r2.tar.gz",
+ "tarball_sha256": "856d7b812263d44e01becf833a89e3c0a9207f34cf2a6dfe3f28a5dfb7e4da28",
+ "kit_root": "v4.7.6-CE-ubuntu24.04-r2",
+ "generated_at": "2026-11-25T01:31:26Z",
+ "generator": "KitForge release/recipe_publish.py",
+ "dockerfile": "Dockerfile.offline.pinned",
+ "build_script": "BUILD_OFFLINE.sh",
+ "preview_lines": 24,
+ "pins": {
+  "upstream": {
+   "repo": "https://github.com/mastodon/mastodon",
+   "ref": "v4.7.6",
+   "commit": "a593c9420d2ff4664d448a9cb71bf8ed4ff0c29a",
+   "url": "https://github.com/mastodon/mastodon/tree/a593c9420d2ff4664d448a9cb71bf8ed4ff0c29a",
+   "from": "docs/provenance/BUILD_RECIPE.json"
+  },
+  "fetches": [
+   {
+    "kind": "git",
+    "url": "https://github.com/mastodon/mastodon",
+    "ref": "v4.7.6"
+   },
+   {
+    "kind": "http",
+    "url": "https://cache.ruby-lang.org/pub/ruby/4.0/ruby-4.0.10.tar.gz"
+   },
+   {
+    "kind": "http",
+    "url": "https://cache.ruby-lang.org/pub/ruby/index.txt"
+   },
+   {
+    "kind": "http",
+    "url": "https://nodejs.org/dist/v24.22.3/node-v24.22.3-linux-x64.tar.gz"
+   },
+   {
+    "kind": "http",
+    "url": "https://nodejs.org/dist/v24.22.3/SHASUMS256.txt"
+   },
+   {
+    "kind": "http",
+    "url": "https://github.com/libvips/libvips/releases/download/v8.18.7/vips-8.18.7.tar.xz"
+   },
+   {
+    "kind": "http",
+    "url": "https://ffmpeg.org/releases/ffmpeg-9.1.tar.xz"
+   }
+  ],
+  "bases": [
+   {
+    "ref": "ubuntu:24.04@sha256:9c7f200c07e3d4a03e7249d2c16bf66a51120fb876aa2242cf31451412543289",
+    "image": "ubuntu:24.04",
+    "digest": "sha256:9c7f200c07e3d4a03e7249d2c16bf66a51120fb876aa2242cf31451412543289"
+   }
+  ],
+  "toolchain": {
+   "buildkit": "moby/buildkit:v0.31.2",
+   "buildkit_image_digest": "sha256:e0e67ea9c4bb07bdef683e29f70f3b623d1eb9c82274a9ec04e6bb0511449fb0"
+  },
+  "build_method": "source-rebuild-ruby",
+  "source_date_epoch": 1795543185,
+  "source_date_epoch_utc": "2026-11-24T17:59:45Z",
+  "target": {
+   "image_manifest_digest": "sha256:1938eb27869ae3e5a7961fc384f717b03bf3bccbd35c60da2d3da8d2111506f4",
+   "config_digest": "sha256:8d1b82bc08e5ee765c89329443b6bd39ffd76812a5d538e6393b52eef522868f",
+   "image": "readystack/mastodon:v4.7.6-CE-ubuntu24.04-r2"
+  },
+  "checksummed_files": 27137
+ },
+ "files": [
+  {
+   "path": "BASES.tsv",
+   "size": 121,
+   "sha256": "c506d719c30d576fe42dd46d1cf2a9a05f4f3f364b41e02e4ffad3a1fc19500e",
+   "lines": 1,
+   "public": "full"
+  },
+  {
+   "path": "BUILD_OFFLINE.sh",
+   "size": 8856,
+   "sha256": "6ab4f08a6ec775b32d854f03413b30ecfe555ddba78cf0de956235f5a2a39542",
+   "lines": 162,
+   "public": "preview",
+   "preview_lines": 24
+  },
+  {
+   "path": "CHECKSUMS.sha256",
+   "size": 3703497,
+   "sha256": "bdbdeef7d3e952f62109e0d67682bff4fb4a84afbb1b59d785453deaaa2cf00e",
+   "lines": 27137,
+   "public": "account",
+   "stored": "gzip"
+  },
+  {
+   "path": "DOCKERFILE_NAME.txt",
+   "size": 26,
+   "sha256": "9aadd1ede68e016a6f163c97befc5ff2fcdc8ebd4f84b108dba63cb195fa8c84",
+   "lines": 1,
+   "public": "full"
+  },
+  {
+   "path": "Dockerfile",
+   "size": 8167,
+   "sha256": "c8d87f2f92950289d32273ddf3d2fba7af2b9a7a0e70cfa025c72709dfa8cf16",
+   "lines": 79,
+   "public": "account"
+  },
+  {
+   "path": "Dockerfile.offline",
+   "size": 8167,
+   "sha256": "c8d87f2f92950289d32273ddf3d2fba7af2b9a7a0e70cfa025c72709dfa8cf16",
+   "lines": 79,
+   "public": "account"
+  },
+  {
+   "path": "Dockerfile.offline.pinned",
+   "size": 8167,
+   "sha256": "c8d87f2f92950289d32273ddf3d2fba7af2b9a7a0e70cfa025c72709dfa8cf16",
+   "lines": 79,
+   "public": "preview",
+   "preview_lines": 24
+  },
+  {
+   "path": "Dockerfile.vendor",
+   "size": 10328,
+   "sha256": "c6d11cfacb51bbbd221542998fb81e61be8e5095d9595cb10b330d77d073347a",
+   "lines": 87,
+   "public": "account"
+  },
+  {
+   "path": "FILE_MODES.tsv",
+   "size": 2100256,
+   "sha256": "7c44f469c142fb77f29ba7fa7cc5e21675ee7b7f55b2170524f46e77765b3028",
+   "lines": 29352,
+   "public": "account",
+   "stored": "gzip"
+  },
+  {
+   "path": "MANIFEST.txt",
+   "size": 1858211,
+   "sha256": "1a33ad97a553655ee381683af3e468e2ac1068af95d85008cfcfdb8f9ee0cce6",
+   "lines": 27139,
+   "public": "account",
+   "stored": "gzip"
+  },
+  {
+   "path": "README.md",
+   "size": 3297,
+   "sha256": "b76cd3ed049ccd85037c649a4d846736c9e286d77a3af63253e1b533899fbaac",
+   "lines": 39,
+   "public": "account"
+  },
+  {
+   "path": "SOURCE_DATE_EPOCH.txt",
+   "size": 11,
+   "sha256": "b3856d7e574ab84aa789e34132e8679477530c0a9c554f8db4b85b4de65ecb02",
+   "lines": 1,
+   "public": "full"
+  },
+  {
+   "path": "TARGET_DIGEST.txt",
+   "size": 437,
+   "sha256": "d79c5aed4129d2d98555258a7d0d25cfad193d873aca655f27d9fbff46d840b5",
+   "lines": 8,
+   "public": "full"
+  },
+  {
+   "path": "VERIFY_OFFLINE.sh",
+   "size": 10153,
+   "sha256": "3e8184ea230cfd8f41f977e26be6bf7bd03112c396c517837ce0c7de4f7399dd",
+   "lines": 165,
+   "public": "account"
+  },
+  {
+   "path": "docs/PROVENANCE.md",
+   "size": 2668,
+   "sha256": "fdbbada3da17644a270a928713273a5e7793fac429b33743e6868e0d29ade5bf",
+   "lines": 36,
+   "public": "account"
+  },
+  {
+   "path": "docs/REBUILD.md",
+   "size": 6141,
+   "sha256": "0405d7aac07a14cee76e3ec694b8c7b18a065b48b781054c8dff39d2020785ec",
+   "lines": 62,
+   "public": "account"
+  },
+  {
+   "path": "docs/VERIFY.md",
+   "size": 2034,
+   "sha256": "24bdc00cdf86cff93d4b7849e61c0d28a6d5110b8d01efb1ddcc4c2f11b48bd2",
+   "lines": 34,
+   "public": "account"
+  },
+  {
+   "path": "docs/provenance/BASE_IMAGE_DIGESTS.lock",
+   "size": 51,
+   "sha256": "0cfd6c80e90ef413ff8a660721e556246bda9a9b93e5b77c5002970902b4b698",
+   "lines": 2,
+   "public": "full"
+  },
+  {
+   "path": "docs/provenance/BUILD_RECIPE.json",
+   "size": 8704,
+   "sha256": "845bff7867bed83808d8ca67ea3541dd0df8d9b9b87a826b239f3d6846797e48",
+   "lines": 179,
+   "public": "account"
+  },
+  {
+   "path": "docs/provenance/CUSTODY_INPUTS.json",
+   "size": 650,
+   "sha256": "83c62152b114d33ea8e404e7ce371ceb19e8fc3f4c3cb3322a66b9a8f45fc0f5",
+   "lines": 17,
+   "public": "account"
+  },
+  {
+   "path": "docs/provenance/SOURCE_FILE_MANIFEST.json",
+   "size": 267854,
+   "sha256": "ae1d85af5508418bd1ee7e2b0b18c6b0e62231f44d4449bfb531ae4bdc052741",
+   "lines": 5007,
+   "public": "account",
+   "stored": "gzip"
+  },
+  {
+   "path": "docs/provenance/SOURCE_TREE_HASH.json",
+   "size": 308,
+   "sha256": "a21257c1df5fa405743034661912cf859e489de030ddc1a35541d5ac137f0c4b",
+   "lines": 9,
+   "public": "full"
+  },
+  {
+   "path": "docs/provenance/SYSTEM_PINNING.lock",
+   "size": 383,
+   "sha256": "b15de43eae5ade1af1776da31fb0fbaecee58a68cef30da61174f6629d0062e2",
+   "lines": 36,
+   "public": "account"
+  },
+  {
+   "path": "docs/provenance/TOOLCHAIN.lock",
+   "size": 6471,
+   "sha256": "3fa11c54d467e8252560639af5d9a900428f2e5fbccb53edb273569dba4aaf7d",
+   "lines": 204,
+   "public": "account"
+  },
+  {
+   "path": "kitforge-ruby-gems.rb",
+   "size": 5570,
+   "sha256": "7f6627293be0debc7270e65cfe3559a29d3d95791843866fe1065570a460dd09",
+   "lines": 102,
+   "public": "account"
+  },
+  {
+   "path": "mastodon-entrypoint.sh",
+   "size": 1285,
+   "sha256": "14ebbe17d59738565cd3304ce33bfd84ee068e6a3e293932fd39fcd34199676a",
+   "lines": 21,
+   "public": "account"
+  },
+  {
+   "path": "rebuild.json",
+   "size": 1221,
+   "sha256": "66ca4f20fb61debde4b1b12e329a416e7de3f26221056e4c4d957fcfcc869f27",
+   "lines": 31,
+   "public": "account"
+  },
+  {
+   "path": "toolchain/BUILDKIT_TAG.txt",
+   "size": 22,
+   "sha256": "fcd530eeb02b063d2f047adad6eef896422a8e8d558513e5f09b2a262be32573",
+   "lines": 1,
+   "public": "full"
+  }
+ ],
+ "skipped": [],
+ "kit_adds": {
+  "bases": {
+   "files": 5,
+   "bytes": 29796854
+  },
+  "docs": {
+   "files": 9989,
+   "bytes": 92602884
+  },
+  "toolchain": {
+   "files": 1,
+   "bytes": 111529472
+  },
+  "vendored": {
+   "files": 17116,
+   "bytes": 675136952
+  }
+ },
+ "redacted_files": 0
+}

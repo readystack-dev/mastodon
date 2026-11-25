@@ -1,0 +1,204 @@
+{
+  "apt_refresh": [
+    {
+      "min_version": "2.8.4ubuntu0.1",
+      "package": "apt",
+      "reason": "CVE-2026-109518: apt 2.8.3 -> 2.8.4ubuntu0.1"
+    },
+    {
+      "min_version": "2.8.4ubuntu0.1",
+      "package": "libapt-pkg6.0t64",
+      "reason": "CVE-2026-109518: libapt-pkg6.0t64 2.8.3 -> 2.8.4ubuntu0.1"
+    },
+    {
+      "min_version": "10.42-4ubuntu2.2",
+      "package": "libpcre2-8-0",
+      "reason": "CVE-2026-103111, CVE-2026-86145, CVE-2026-89156, CVE-2026-89157 \u2026: libpcre2-8-0 10.42-4ubuntu2.1 -> 10.42-4ubuntu2.2"
+    },
+    {
+      "min_version": "0.10.6-2ubuntu0.6",
+      "package": "libssh-4",
+      "reason": "USN-9187-1: libssh-4 0.10.6-2ubuntu0.5 -> 0.10.6-2ubuntu0.6"
+    }
+  ],
+  "build_method": "source-rebuild-ruby",
+  "chain_id": 1227,
+  "dep_bumps": [],
+  "expected_residuals": [],
+  "images": [
+    {
+      "digest": "sha256:9c7f200c07e3d4a03e7249d2c16bf66a51120fb876aa2242cf31451412543289",
+      "ref": "ubuntu:24.04",
+      "role": "base"
+    }
+  ],
+  "mod_replaces": [],
+  "runtime_packages": [
+    "curl",
+    "wget",
+    "file",
+    "procps",
+    "tini",
+    "libjemalloc2",
+    "libexpat1",
+    "libglib2.0-0t64",
+    "libicu74",
+    "libidn12",
+    "libpq5",
+    "libreadline8t64",
+    "shared-mime-info",
+    "libcgif0",
+    "libexif12",
+    "libheif1",
+    "libhwy1t64",
+    "libimagequant0",
+    "libjpeg-turbo8",
+    "liblcms2-2",
+    "libspng0",
+    "libtiff6",
+    "libwebp7",
+    "libwebpdemux2",
+    "libwebpmux3",
+    "libdav1d7",
+    "libmp3lame0",
+    "libopus0",
+    "libsnappy1v5",
+    "libvorbis0a",
+    "libvorbisenc2",
+    "libvorbisfile3",
+    "libvpx9",
+    "libx264-164",
+    "libx265-199",
+    "liblzma5"
+  ],
+  "schema": "kitforge.toolchain_lock.v1",
+  "slug": "mastodon",
+  "source": {
+    "app_dir": "/opt/mastodon",
+    "app_prune": [
+      "tmp/cache",
+      "log/production.log"
+    ],
+    "asset_cmds": [
+      "corepack enable",
+      "yarn workspaces focus --production @mastodon/mastodon",
+      "bundle exec rails assets:precompile",
+      "rm -rf node_modules && yarn workspaces focus --production @mastodon/streaming && test -d node_modules/ws && rm -rf tmp/cache"
+    ],
+    "asset_env": {
+      "COREPACK_ENABLE_DOWNLOAD_PROMPT": "0",
+      "NODE_ENV": "production",
+      "RAILS_ENV": "production",
+      "SECRET_KEY_BASE_DUMMY": "1"
+    },
+    "asset_packages": [
+      "libvips42t64"
+    ],
+    "build_packages": [
+      "rustc",
+      "git",
+      "libpq-dev",
+      "libicu-dev",
+      "libidn-dev",
+      "libjemalloc-dev",
+      "libgdbm-dev",
+      "shared-mime-info",
+      "meson",
+      "ninja-build",
+      "nasm",
+      "xz-utils",
+      "libglib2.0-dev",
+      "libexpat1-dev",
+      "libcgif-dev",
+      "libexif-dev",
+      "libheif-dev",
+      "libhwy-dev",
+      "libimagequant-dev",
+      "libjpeg-turbo8-dev",
+      "liblcms2-dev",
+      "libspng-dev",
+      "libtiff-dev",
+      "libwebp-dev",
+      "libdav1d-dev",
+      "liblzma-dev",
+      "libmp3lame-dev",
+      "libopus-dev",
+      "libsnappy-dev",
+      "libvorbis-dev",
+      "libvpx-dev",
+      "libx264-dev",
+      "libx265-dev"
+    ],
+    "commit": "a593c9420d2ff4664d448a9cb71bf8ed4ff0c29a",
+    "commit_epoch": 1795081631,
+    "node_dist": {
+      "sha256": "061ec3e3062115705b56b51fa9cc330ab50d34b6969387d4e4b1a50c6809acc2",
+      "version": "24.22.3"
+    },
+    "node_runtime": true,
+    "npm_floors": [
+      {
+        "module": "body-parser",
+        "to": "2.4.0",
+        "why": "verdict: body-parser None -> 2.4.0"
+      },
+      {
+        "module": "proxy-addr",
+        "to": "2.0.8",
+        "why": "verdict: proxy-addr None -> 2.0.8"
+      },
+      {
+        "module": "source-map-js",
+        "to": "1.2.2",
+        "why": "verdict: source-map-js None -> 1.2.2"
+      },
+      {
+        "module": "undici",
+        "to": "8.12.2",
+        "why": "verdict: undici None -> 8.12.2"
+      }
+    ],
+    "offline_build_cmds": [
+      "mkdir -p /tmp/vips && tar -xJf /downloads/vips-8.18.7.tar.xz -C /tmp/vips --strip-components 1 --no-same-owner && cd /tmp/vips && meson setup build --prefix /usr/local --libdir=lib -Ddeprecated=false -Dintrospection=disabled -Dmodules=disabled -Dexamples=false && ninja -C build && ninja -C build install && cd / && rm -rf /tmp/vips",
+      "mkdir -p /tmp/ffmpeg && tar -xJf /downloads/ffmpeg-9.1.tar.xz -C /tmp/ffmpeg --strip-components 1 --no-same-owner && cd /tmp/ffmpeg && ./configure --prefix=/usr/local --toolchain=hardened --disable-debug --disable-devices --disable-doc --disable-ffplay --disable-network --disable-static --enable-ffmpeg --enable-ffprobe --enable-gpl --enable-libdav1d --enable-libmp3lame --enable-libopus --enable-libsnappy --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-shared --enable-version3 && make -j\"$(nproc)\" && make install && cd / && rm -rf /tmp/ffmpeg",
+      "ldconfig && vips -v && ffmpeg -version | head -1 && ffprobe -version | head -1"
+    ],
+    "package_manager": "yarn",
+    "ref": "v4.7.6",
+    "repo": "https://github.com/mastodon/mastodon",
+    "ruby": {
+      "configure_args": [
+        "--prefix=/usr/local",
+        "--enable-shared",
+        "--disable-install-doc",
+        "--disable-install-static-library",
+        "--enable-yjit",
+        "--with-jemalloc"
+      ],
+      "gem_updates": [
+        {
+          "name": "json",
+          "version": "2.21.2"
+        }
+      ],
+      "sha256": "b53eef3371fa5d3e3b74340edcd015f06d5d8853968d4e539a5264fce41ed9f1",
+      "version": "4.0.10"
+    },
+    "source_date_epoch": 1795543185,
+    "source_date_epoch_basis": "release-cut",
+    "source_date_epoch_provenance": "the time release v4.7.6-CE-ubuntu24.04-r2 was cut (2026-11-24T17:59:45Z), by scripts/rerelease-agenda.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit a593c9420d2f, dated 2026-11-19T09:47:11Z (source.commit_epoch).",
+    "vendor_downloads": [
+      {
+        "name": "vips-8.18.7.tar.xz",
+        "sha256": "5baaead3b0bb20ffdb9e9ff09aa9fda08620923df77b63b436654cb5e0b3bf94",
+        "url": "https://github.com/libvips/libvips/releases/download/v8.18.7/vips-8.18.7.tar.xz"
+      },
+      {
+        "name": "ffmpeg-9.1.tar.xz",
+        "sha256": "1a4d394ae63d190a526cd052eb4415c156b5c5e2df37efab41a7de0b8fde2433",
+        "url": "https://ffmpeg.org/releases/ffmpeg-9.1.tar.xz"
+      }
+    ]
+  },
+  "version": "v4.7.6"
+}

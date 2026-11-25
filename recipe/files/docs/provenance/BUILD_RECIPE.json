@@ -1,0 +1,179 @@
+{
+  "schema": "kitforge.build_recipe.v1",
+  "slug": "mastodon",
+  "image": "readystack/mastodon:v4.7.6-CE-ubuntu24.04-r2",
+  "build_method": "source-rebuild-ruby",
+  "source": {
+    "repo": "https://github.com/mastodon/mastodon",
+    "ref": "v4.7.6",
+    "commit": "a593c9420d2ff4664d448a9cb71bf8ed4ff0c29a",
+    "source_date_epoch": 1795543185,
+    "source_date_epoch_provenance": "the time release v4.7.6-CE-ubuntu24.04-r2 was cut (2026-11-24T17:59:45Z), by scripts/rerelease-agenda.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit a593c9420d2f, dated 2026-11-19T09:47:11Z (source.commit_epoch).",
+    "ruby": {
+      "version": "4.0.10",
+      "sha256": "b53eef3371fa5d3e3b74340edcd015f06d5d8853968d4e539a5264fce41ed9f1",
+      "configure_args": [
+        "--prefix=/usr/local",
+        "--enable-shared",
+        "--disable-install-doc",
+        "--disable-install-static-library",
+        "--enable-yjit",
+        "--with-jemalloc"
+      ],
+      "gem_updates": [
+        {
+          "name": "json",
+          "version": "2.21.2"
+        }
+      ],
+      "_note": "UPDATE 2026-11-22: 4.0.10 is the newest 4.0 on ruby-lang.org (released 2026-11-18; index.txt sha256 and the release announcement; the tarball downloaded 2026-11-22 hashes to it). It replaces 4.0.9 for GHSA-34m4-m9fh-gqp5, GHSA-7x2q-68qv-6p8x, GHSA-3p8q-wmhx-vm2w (critical), CVE-2026-132825 and GHSA-87fm-7w84-j2px, GHSA-wpqw-5qxg-m68r, GHSA-7whj-cfh7-xgm4 (high): seven Regexp and String case-conversion bugs, some with public PoCs for remote code execution, fixed in 4.0.10, 3.4.13 and 3.3.14 (ruby-lang.org advisory, 2026-11-18). Earlier notes below were written for 4.0.9 and name it as it was then. Gemfile: ruby '>= 3.3.0', '< 4.1.0'; upstream's image uses 4.0.9 since v4.7.4 (4.0.6 before). 4.0.9 is the newest 4.0 on ruby-lang.org (index.txt sha256, 2026-10-28). --with-jemalloc links jemalloc into Ruby, which upstream's image does with patchelf; --enable-yjit needs rustc at build time (RUBY_YJIT_ENABLE=1 as upstream). gem_updates: Ruby 4.0.9's default json is 2.18.0 (/usr/local/lib/ruby/gems/4.0.0/specifications/default/json-2.18.0.gemspec in chain 806's image), inside GHSA-3m6g-2423-7cp3 / CVE-2026-33210 (high, fixed 2.19.2), which chain 806's verdict listed; the app itself loads the json 2.21.2 Mastodon v4.7.4's Gemfile.lock locks (vendor/bundle). gem_updates replaces Ruby's copy with that same 2.21.2, so the image carries one json (openproject's fix on the same Ruby)."
+    },
+    "node_dist": {
+      "version": "24.22.3",
+      "sha256": "061ec3e3062115705b56b51fa9cc330ab50d34b6969387d4e4b1a50c6809acc2",
+      "_note": "Node 24, upstream's NODE_MAJOR_VERSION; nodejs.org's newest 24.x (scripts/node-pin.py). package.json: engines node >= 22, packageManager yarn@4.18.1 (corepack)."
+    },
+    "node_runtime": true,
+    "package_manager": "yarn",
+    "npm_floors": [
+      {
+        "module": "body-parser",
+        "to": "2.4.0",
+        "why": "verdict: body-parser None -> 2.4.0"
+      },
+      {
+        "module": "proxy-addr",
+        "to": "2.0.8",
+        "why": "verdict: proxy-addr None -> 2.0.8"
+      },
+      {
+        "module": "source-map-js",
+        "to": "1.2.2",
+        "why": "verdict: source-map-js None -> 1.2.2"
+      },
+      {
+        "module": "undici",
+        "to": "8.12.2",
+        "why": "verdict: undici None -> 8.12.2"
+      }
+    ],
+    "_npm_floors_note": "The streaming server runs on the production node_modules the asset build leaves (source.node_runtime), so its npm packages ship and are scanned. The floors go into the root package.json as Yarn resolutions before the asset build (gen_dockerfile npm_override_lines), so both `yarn workspaces focus` runs resolve them (it does not install frozen), and the vendor stage then checks every copy in the vendored tree is at its floor. All four are in-range raises of transitive dependencies (no declared range is crossed). OSV lists no advisory against any of the four fixed releases (2026-11-01).",
+    "app_dir": "/opt/mastodon",
+    "build_packages": [
+      "rustc",
+      "git",
+      "libpq-dev",
+      "libicu-dev",
+      "libidn-dev",
+      "libjemalloc-dev",
+      "libgdbm-dev",
+      "shared-mime-info",
+      "meson",
+      "ninja-build",
+      "nasm",
+      "xz-utils",
+      "libglib2.0-dev",
+      "libexpat1-dev",
+      "libcgif-dev",
+      "libexif-dev",
+      "libheif-dev",
+      "libhwy-dev",
+      "libimagequant-dev",
+      "libjpeg-turbo8-dev",
+      "liblcms2-dev",
+      "libspng-dev",
+      "libtiff-dev",
+      "libwebp-dev",
+      "libdav1d-dev",
+      "liblzma-dev",
+      "libmp3lame-dev",
+      "libopus-dev",
+      "libsnappy-dev",
+      "libvorbis-dev",
+      "libvpx-dev",
+      "libx264-dev",
+      "libx265-dev"
+    ],
+    "asset_packages": [
+      "libvips42t64"
+    ],
+    "_asset_packages_note": "Rails loads libvips (ruby-vips, through FFI) when it boots, also for assets:precompile; upstream's precompiler stage copies its libvips in. Here Ubuntu's libvips (8.15, above Mastodon's 8.13 minimum) is installed in the online asset stage only; the image runs the libvips 8.18.7 the offline build compiles.",
+    "asset_env": {
+      "RAILS_ENV": "production",
+      "NODE_ENV": "production",
+      "SECRET_KEY_BASE_DUMMY": "1",
+      "COREPACK_ENABLE_DOWNLOAD_PROMPT": "0"
+    },
+    "asset_cmds": [
+      "corepack enable",
+      "yarn workspaces focus --production @mastodon/mastodon",
+      "bundle exec rails assets:precompile",
+      "rm -rf node_modules && yarn workspaces focus --production @mastodon/streaming && test -d node_modules/ws && rm -rf tmp/cache"
+    ],
+    "_asset_note": "Upstream's precompiler stage, then upstream's streaming/Dockerfile install: node_modules ends up holding only the streaming server's production dependencies, which the runtime's node runs.",
+    "app_prune": [
+      "tmp/cache",
+      "log/production.log"
+    ],
+    "_app_prune_note": "Upstream's build output only (the defaults without node_modules, which holds the streaming server's production dependencies): no upstream file is removed.",
+    "vendor_downloads": [
+      {
+        "name": "vips-8.18.7.tar.xz",
+        "url": "https://github.com/libvips/libvips/releases/download/v8.18.7/vips-8.18.7.tar.xz",
+        "sha256": "5baaead3b0bb20ffdb9e9ff09aa9fda08620923df77b63b436654cb5e0b3bf94"
+      },
+      {
+        "name": "ffmpeg-9.1.tar.xz",
+        "url": "https://ffmpeg.org/releases/ffmpeg-9.1.tar.xz",
+        "sha256": "1a4d394ae63d190a526cd052eb4415c156b5c5e2df37efab41a7de0b8fde2433"
+      }
+    ],
+    "offline_build_cmds": [
+      "mkdir -p /tmp/vips && tar -xJf /downloads/vips-8.18.7.tar.xz -C /tmp/vips --strip-components 1 --no-same-owner && cd /tmp/vips && meson setup build --prefix /usr/local --libdir=lib -Ddeprecated=false -Dintrospection=disabled -Dmodules=disabled -Dexamples=false && ninja -C build && ninja -C build install && cd / && rm -rf /tmp/vips",
+      "mkdir -p /tmp/ffmpeg && tar -xJf /downloads/ffmpeg-9.1.tar.xz -C /tmp/ffmpeg --strip-components 1 --no-same-owner && cd /tmp/ffmpeg && ./configure --prefix=/usr/local --toolchain=hardened --disable-debug --disable-devices --disable-doc --disable-ffplay --disable-network --disable-static --enable-ffmpeg --enable-ffprobe --enable-gpl --enable-libdav1d --enable-libmp3lame --enable-libopus --enable-libsnappy --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-shared --enable-version3 && make -j\"$(nproc)\" && make install && cd / && rm -rf /tmp/ffmpeg",
+      "ldconfig && vips -v && ffmpeg -version | head -1 && ffprobe -version | head -1"
+    ],
+    "_offline_build_note": "libvips and FFmpeg with upstream's own options (Dockerfile stages libvips and ffmpeg), installed into /usr/local, which the runtime receives with Ruby (the headers stay behind).",
+    "source_date_epoch_basis": "release-cut",
+    "commit_epoch": 1795081631
+  },
+  "binaries_from_source": null,
+  "runtime_packages": [
+    "curl",
+    "wget",
+    "file",
+    "procps",
+    "tini",
+    "libjemalloc2",
+    "libexpat1",
+    "libglib2.0-0t64",
+    "libicu74",
+    "libidn12",
+    "libpq5",
+    "libreadline8t64",
+    "shared-mime-info",
+    "libcgif0",
+    "libexif12",
+    "libheif1",
+    "libhwy1t64",
+    "libimagequant0",
+    "libjpeg-turbo8",
+    "liblcms2-2",
+    "libspng0",
+    "libtiff6",
+    "libwebp7",
+    "libwebpdemux2",
+    "libwebpmux3",
+    "libdav1d7",
+    "libmp3lame0",
+    "libopus0",
+    "libsnappy1v5",
+    "libvorbis0a",
+    "libvorbisenc2",
+    "libvorbisfile3",
+    "libvpx9",
+    "libx264-164",
+    "libx265-199",
+    "liblzma5"
+  ]
+}
