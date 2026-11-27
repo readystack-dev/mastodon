@@ -1,14 +1,14 @@
 {
   "schema": "kitforge.build_recipe.v1",
   "slug": "mastodon",
-  "image": "readystack/mastodon:v4.7.6-CE-ubuntu24.04-r2",
+  "image": "readystack/mastodon:v4.7.6-CE-ubuntu24.04-r3",
   "build_method": "source-rebuild-ruby",
   "source": {
     "repo": "https://github.com/mastodon/mastodon",
     "ref": "v4.7.6",
     "commit": "a593c9420d2ff4664d448a9cb71bf8ed4ff0c29a",
-    "source_date_epoch": 1795543185,
-    "source_date_epoch_provenance": "the time release v4.7.6-CE-ubuntu24.04-r2 was cut (2026-11-24T17:59:45Z), by scripts/rerelease-agenda.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit a593c9420d2f, dated 2026-11-19T09:47:11Z (source.commit_epoch).",
+    "source_date_epoch": 1795644293,
+    "source_date_epoch_provenance": "the time release v4.7.6-CE-ubuntu24.04-r3 was cut (2026-11-25T22:04:53Z), by scripts/rerelease-agenda.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit a593c9420d2f, dated 2026-11-19T09:47:11Z (source.commit_epoch).",
     "ruby": {
       "version": "4.0.10",
       "sha256": "b53eef3371fa5d3e3b74340edcd015f06d5d8853968d4e539a5264fce41ed9f1",

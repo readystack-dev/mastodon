@@ -16,16 +16,16 @@
     "context": ".",
     "dockerfile": "Dockerfile.offline.pinned",
     "mtime_policy": "clamp",
-    "source_date_epoch": 1795543185,
-    "tree_hash": "sha256:1268bfc75f542a908964738d6fc9ab477926f6d632a3542d933663594e5d9734"
+    "source_date_epoch": 1795644293,
+    "tree_hash": "sha256:e6fea5746ceae70c6b0e5bd1d1e0bfaf134b6851bda691746c7f1e1835142f95"
   },
   "probe": {
     "skip": "this image needs db, redis (not part of this archive); boot it with your own services as the admin handbook describes"
   },
   "schema": "readystack-rebuild-bundle/v0.1",
   "subject": {
-    "config_digest": "sha256:8d1b82bc08e5ee765c89329443b6bd39ffd76812a5d538e6393b52eef522868f",
-    "image_manifest_digest": "sha256:1938eb27869ae3e5a7961fc384f717b03bf3bccbd35c60da2d3da8d2111506f4",
-    "name": "docker.io/readystack/mastodon:v4.7.6-CE-ubuntu24.04-r2"
+    "config_digest": "sha256:4d12fef0a084f1fab8092db143ecf1ab8efefcc35b51abe51ca7a46809b74388",
+    "image_manifest_digest": "sha256:2616072058fe63933e680002b12220a27a3fd14c3fd9edfce8e5933546ff5e83",
+    "name": "docker.io/readystack/mastodon:v4.7.6-CE-ubuntu24.04-r3"
   }
 }

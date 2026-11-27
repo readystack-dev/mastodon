@@ -9,7 +9,7 @@ RUN --mount=type=bind,source=vendored/debs,target=/tmp/debs --mount=type=bind,so
     dpkg --configure -a && bad= && for d in "$@"; do p=$(dpkg-deb -f "$d" Package) v=$(dpkg-deb -f "$d" Version); \
       case "$(dpkg-query -W -f='${Version} ${db:Status-Abbrev}' "$p" 2>/dev/null)" in "$v ii"*) ;; *) bad="$bad $p=$v" ;; esac; done && \
     { [ -z "$bad" ] || { echo "vendored debs not installed at their vendored version:$bad" >&2; false; }; }
-ARG SOURCE_DATE_EPOCH=1795543185
+ARG SOURCE_DATE_EPOCH=1795644293
 ENV SOURCE_DATE_EPOCH=${SOURCE_DATE_EPOCH}
 COPY vendored/ruby/ /tmp/ruby/
 RUN cd /tmp/ruby && echo 'b53eef3371fa5d3e3b74340edcd015f06d5d8853968d4e539a5264fce41ed9f1  ruby-4.0.10.tar.gz' | sha256sum -c - && \
@@ -46,7 +46,7 @@ RUN --mount=type=bind,source=vendored/debs,target=/tmp/debs \
     { [ -z "$bad" ] || { echo "vendored debs not installed at their vendored version:$bad" >&2; false; }; } && \
     rm -rf /var/lib/apt/lists/* \
            /var/log/dpkg.log /var/log/alternatives.log /var/log/apt /var/cache/ldconfig/aux-cache /var/cache/fontconfig
-ARG SOURCE_DATE_EPOCH=1795543185
+ARG SOURCE_DATE_EPOCH=1795644293
 RUN groupadd -g 991 mastodon && useradd -u 991 -g mastodon -s /bin/sh -d /opt/mastodon -m mastodon && \
     : "${SOURCE_DATE_EPOCH:?SOURCE_DATE_EPOCH must be set for a reproducible build}" && \
     sed -ri "s/^([^:]*:[^:]*):[0-9]*:/\1:$((SOURCE_DATE_EPOCH/86400)):/" /etc/shadow && \
@@ -65,11 +65,16 @@ RUN ln -s /opt/mastodon /mastodon && \
     node --version | grep -qx 'v24.22.3'
 LABEL org.opencontainers.image.licenses="AGPL-3.0-only"
 LABEL org.opencontainers.image.title="Mastodon"
-LABEL org.opencontainers.image.version="v4.7.6-CE-ubuntu24.04-r2"
+LABEL org.opencontainers.image.version="v4.7.6-CE-ubuntu24.04-r3"
 LABEL org.opencontainers.image.description="Mastodon is the open-source, decentralised social network server of the fediverse (ActivityPub). This image runs Mastodon 4.7 built from source on Ubuntu 24.04 as a non-root user: the web server, the Sidekiq worker and the streaming server from one image, with libvips and FFmpeg compiled from source as upstream's image does."
 LABEL org.opencontainers.image.revision="a593c9420d2ff4664d448a9cb71bf8ed4ff0c29a"
 LABEL com.readystack.license.disclosure="This image includes Mastodon (https://github.com/mastodon/mastodon), licensed under AGPL-3.0-only, built from upstream's tag v4.7.6 (commit a593c9420d2ff4664d448a9cb71bf8ed4ff0c29a). Modifications: the build adds Yarn resolutions to package.json that raise four npm dependencies of the streaming server (body-parser 2.4.0, proxy-addr 2.0.8, source-map-js 1.2.2, undici 8.12.2) to fixed, upstream-published releases (security updates; no Mastodon source file is edited); full diff of every upstream file the build changes at https://readystack.dev/source/mastodon/v4.7.6/mastodon-v4.7.6-readystack.patch. The upstream source is https://github.com/mastodon/mastodon/tree/v4.7.6. Ruby's own json gem is replaced by the json 2.21.2 that Mastodon's Gemfile.lock uses. Operating-system packages come from Ubuntu's archive, unmodified."
-LABEL org.opencontainers.image.source="https://github.com/mastodon/mastodon"
+LABEL org.opencontainers.image.source="https://github.com/readystack-dev/mastodon"
+LABEL readystack.upstream.source="https://github.com/mastodon/mastodon"
+LABEL org.opencontainers.image.url="https://readystack.dev/products/mastodon"
+LABEL org.opencontainers.image.documentation="https://github.com/readystack-dev/mastodon#readme"
+LABEL org.opencontainers.image.authors="ReadyStack <contact@readystack.dev>"
+LABEL org.opencontainers.image.vendor="ReadyStack.dev"
 HEALTHCHECK --interval=10s --timeout=30s --start-period=300s \
   CMD curl -fsS http://127.0.0.1:3000/health | grep -q OK || exit 1
 USER mastodon

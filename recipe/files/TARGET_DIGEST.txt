@@ -1,6 +1,6 @@
-image_manifest_digest=sha256:1938eb27869ae3e5a7961fc384f717b03bf3bccbd35c60da2d3da8d2111506f4
-config_digest=sha256:8d1b82bc08e5ee765c89329443b6bd39ffd76812a5d538e6393b52eef522868f
-tag=readystack/mastodon:v4.7.6-CE-ubuntu24.04-r2
+image_manifest_digest=sha256:2616072058fe63933e680002b12220a27a3fd14c3fd9edfce8e5933546ff5e83
+config_digest=sha256:4d12fef0a084f1fab8092db143ecf1ab8efefcc35b51abe51ca7a46809b74388
+tag=readystack/mastodon:v4.7.6-CE-ubuntu24.04-r3
 probe_port=3000
 probe_path=/health
 probe_timeout=1200

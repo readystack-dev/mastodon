@@ -1,4 +1,4 @@
-# Provenance — Mastodon (`v4.7.6-CE-ubuntu24.04-r2`)
+# Provenance — Mastodon (`v4.7.6-CE-ubuntu24.04-r3`)
 
 Every item below is copied from a record in this archive; the record is named in brackets.
 
@@ -13,24 +13,24 @@ Every item below is copied from a record in this archive; the record is named in
 
 - Method: `source-rebuild-ruby`; base image `ubuntu:24.04`
 - Compiled with `--network=none` from vendored source, dependencies and base images; BuildKit pinned to `moby/buildkit:v0.31.2` (shipped in `toolchain/`).
-- SOURCE_DATE_EPOCH: `1795543185` [`SOURCE_DATE_EPOCH.txt`]
+- SOURCE_DATE_EPOCH: `1795644293` [`SOURCE_DATE_EPOCH.txt`]
 - Frozen inputs: [`docs/provenance/FREEZE_MANIFEST.json`], build recipe: [`docs/provenance/BUILD_RECIPE.json`].
 
 ## Output
 
-- Published image: `readystack/mastodon:v4.7.6-CE-ubuntu24.04-r2` — index digest `sha256:9f066caf558c5065f3e0834e80d648fdc41dcf43a0c5c67155d4b9b3bc644964` [`docs/provenance/LOCKED_DIGEST.txt`]
-- linux/amd64 image digest `sha256:1938eb27869ae3e5a7961fc384f717b03bf3bccbd35c60da2d3da8d2111506f4` — reproduced from this archive before publishing [`docs/provenance/REPRO_VERIFICATION.json`].
+- Published image: `readystack/mastodon:v4.7.6-CE-ubuntu24.04-r3` — index digest `sha256:ac98c3e1e30a541ee5541edb849c8ae399edd797dccc34576780a522bfa48768` [`docs/provenance/LOCKED_DIGEST.txt`]
+- linux/amd64 image digest `sha256:2616072058fe63933e680002b12220a27a3fd14c3fd9edfce8e5933546ff5e83` — reproduced from this archive before publishing [`docs/provenance/REPRO_VERIFICATION.json`].
 
 ## Attestations and signature
 
 - SBOM + SLSA provenance attached to the image: attached: an SPDX SBOM and SLSA v1 provenance [`docs/provenance/SCOUT_VERDICT.json`]
-- cosign signature by the ReadyStack release key: verified before publishing. Check it: `cosign verify --key https://readystack.dev/keys/cosign.pub readystack/mastodon:v4.7.6-CE-ubuntu24.04-r2`
+- cosign signature by the ReadyStack release key: verified before publishing. Check it: `cosign verify --key https://readystack.dev/keys/cosign.pub readystack/mastodon:v4.7.6-CE-ubuntu24.04-r3`
 
 ## Pinned inputs, and why
 
-- 28 pinned inputs, each with where it came from, why this one, how it was checked and when it was decided: `docs/PINS.md` [`docs/provenance/PINS.json`] (upstream source 2, base and build images 1, image digests 1, language runtimes and toolchains 2, dependency versions readystack sets 9, files the vendor stage downloads 2, pins in the kit's dockerfiles 6, readystack's build engine 1, dependencies upstream chose 2, services the release checks run beside 2).
+- 29 pinned inputs, each with where it came from, why this one, how it was checked and when it was decided: `docs/PINS.md` [`docs/provenance/PINS.json`] (upstream source 2, base and build images 1, image digests 1, language runtimes and toolchains 2, dependency versions readystack sets 10, files the vendor stage downloads 2, pins in the kit's dockerfiles 6, readystack's build engine 1, dependencies upstream chose 2, services the release checks run beside 2).
 
 ## Build trail
 
-- How this release passed through the ReadyStack harness, record by record (every chain, drive, stage, review round, defect and check, each naming the record it is copied from): `ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r2.trail.json`, published beside this archive and signed with the release key (`ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r2.trail.json.sigstore`), and readable at https://readystack.dev/products/mastodon/trail/v4.7.6-CE-ubuntu24.04-r2.
+- How this release passed through the ReadyStack harness, record by record (every chain, drive, stage, review round, defect and check, each naming the record it is copied from): `ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r3.trail.json`, published beside this archive and signed with the release key (`ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r3.trail.json.sigstore`), and readable at https://readystack.dev/products/mastodon/trail/v4.7.6-CE-ubuntu24.04-r3.
 

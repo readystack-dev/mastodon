@@ -1,6 +1,6 @@
 # Rebuilding Mastodon offline
 
-This archive is the complete build kit for `readystack/mastodon:v4.7.6-CE-ubuntu24.04-r2`; it does not contain the image itself.
+This archive is the complete build kit for `readystack/mastodon:v4.7.6-CE-ubuntu24.04-r3`; it does not contain the image itself.
 
 ## Requirements
 
@@ -10,8 +10,8 @@ This archive is the complete build kit for `readystack/mastodon:v4.7.6-CE-ubuntu
 ## Steps
 
 ```
-tar -xpzf ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r2.tar.gz   # -p keeps every file's mode: modes are build input
-cd v4.7.6-CE-ubuntu24.04-r2
+tar -xpzf ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r3.tar.gz   # -p keeps every file's mode: modes are build input
+cd v4.7.6-CE-ubuntu24.04-r3
 ./BUILD_OFFLINE.sh    # loads the pinned BuildKit from toolchain/, creates a fresh builder,
                       # builds --no-cache --network=none from vendored bases and sources,
                       # writes rebuilt.oci.tar + rebuilt.docker.tar
@@ -23,26 +23,26 @@ A Dockerfile `COPY` carries file modes into the image. Unpacked without `-p`, a 
 
 VERIFY_OFFLINE.sh does not boot this image: this image needs db, redis (not part of this archive); boot it with your own services as the admin handbook describes.
 
-Expected image digest: `sha256:1938eb27869ae3e5a7961fc384f717b03bf3bccbd35c60da2d3da8d2111506f4` (recorded in `TARGET_DIGEST.txt`).
+Expected image digest: `sha256:2616072058fe63933e680002b12220a27a3fd14c3fd9edfce8e5933546ff5e83` (recorded in `TARGET_DIGEST.txt`).
 
 ## The rebuild manifest (`rebuild.json`) and the verifier
 
 This archive is a ReadyStack Rebuild Bundle (specification v0.1, draft, Apache-2.0: https://github.com/ReadyStackFree/rebuild-bundle-spec). `rebuild.json`, at the top of the archive, is its manifest:
 
-- `subject.image_manifest_digest`: the linux/amd64 image the archive rebuilds, `sha256:1938eb27869ae3e5a7961fc384f717b03bf3bccbd35c60da2d3da8d2111506f4`; `subject.name` is the release tag;
+- `subject.image_manifest_digest`: the linux/amd64 image the archive rebuilds, `sha256:2616072058fe63933e680002b12220a27a3fd14c3fd9edfce8e5933546ff5e83`; `subject.name` is the release tag;
 - `engine`: the BuildKit image the build runs in, loaded from `toolchain/buildkit.tar` (never pulled), named by its image ID;
 - `inputs`: the Dockerfile, `SOURCE_DATE_EPOCH`, the mtime rule, and `tree_hash`, a hash over the path, mode and content of every file in the archive except `rebuild.json`, `CHECKSUMS.sha256` and `MANIFEST.txt`, so a changed, added or missing file is detected;
 - `bases`: each base image the Dockerfile names, the OCI layout under `bases/` that supplies it, and the digest that layout must hold.
 
-ReadyStack signs `rebuild.json` with its release key after the release gate and records the signature in the public Sigstore transparency log. The signature is made once the finished archive has passed that gate, so it is published beside the archive, not inside it: `ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r2.rebuild.json.sigstore`, at https://readystack.dev/api/kit/mastodon/v4.7.6-CE-ubuntu24.04-r2/files/ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r2.rebuild.json.sigstore, with a copy of the manifest as `ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r2.rebuild.json` at the same address without `.sigstore`.
+ReadyStack signs `rebuild.json` with its release key after the release gate and records the signature in the public Sigstore transparency log. The signature is made once the finished archive has passed that gate, so it is published beside the archive, not inside it: `ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r3.rebuild.json.sigstore`, at https://readystack.dev/api/kit/mastodon/v4.7.6-CE-ubuntu24.04-r3/files/ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r3.rebuild.json.sigstore, with a copy of the manifest as `ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r3.rebuild.json` at the same address without `.sigstore`.
 
 The reference verifier ships in this archive as `docs/rebuild-bundle/rebuild_bundle.py` (Python 3 standard library, Docker with `buildx`, and cosign to check the signature); the same file is published with the specification. Download the key and the signature next to the kit directory, not into it: a file added inside the kit changes the tree hash, and `validate` then refuses the kit. From the directory this archive extracts to:
 
 ```
 curl -fsSLo ../cosign.pub https://readystack.dev/keys/cosign.pub
-curl -fsSLo ../ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r2.rebuild.json.sigstore https://readystack.dev/api/kit/mastodon/v4.7.6-CE-ubuntu24.04-r2/files/ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r2.rebuild.json.sigstore
-python3 docs/rebuild-bundle/rebuild_bundle.py validate . --key ../cosign.pub --signature ../ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r2.rebuild.json.sigstore
-python3 docs/rebuild-bundle/rebuild_bundle.py verify   . --key ../cosign.pub --signature ../ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r2.rebuild.json.sigstore
+curl -fsSLo ../ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r3.rebuild.json.sigstore https://readystack.dev/api/kit/mastodon/v4.7.6-CE-ubuntu24.04-r3/files/ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r3.rebuild.json.sigstore
+python3 docs/rebuild-bundle/rebuild_bundle.py validate . --key ../cosign.pub --signature ../ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r3.rebuild.json.sigstore
+python3 docs/rebuild-bundle/rebuild_bundle.py verify   . --key ../cosign.pub --signature ../ReadyStack-mastodon-v4.7.6-CE-ubuntu24.04-r3.rebuild.json.sigstore
 ```
 
 `validate` builds nothing: it checks the signature over `rebuild.json`, `CHECKSUMS.sha256`, the tree hash, every base layout's digest and the builder archive. `verify` then rebuilds with the builder container's network egress blocked (iptables through `sudo -n`) and proves the block from inside the builder before building; it exits 0 only when the rebuilt image digest equals `subject.image_manifest_digest`. Other exit codes: 1 the archive is not valid, 2 the rebuilt digest differs, 3 isolation could not be proven (a build with `--isolate none` always ends here, never as verified), 4 the build did not complete.
